@@ -1,0 +1,152 @@
+{% extends "index.html" %} {% block content %}
+<div class="container text-center">
+  <h4 class="display-4">Order Details</h4>
+  <hr />
+</div>
+<div class="container">
+  <main>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">{{order}} | Order ID: {{order.id}}</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Price: &#x20b1;{{order.price}}</li>
+              <li class="list-group-item">Quantity: x{{order.quantity}}</li>
+              <li class="list-group-item">
+                Subtotal: &#x20b1;{{order.subtotal}}
+              </li>
+              <li class="list-group-item">
+                Shipping Fee: &#x20b1;{{order.shipping_fee}}
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col border-end">
+                    Seller SKU: {{order.product.seller_sku}}
+                  </div>
+                  <div class="col">Shop SKU: {{order.product.shop_sku}}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <strong>Total:</strong> &#x20b1;{{order.total}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 hidden">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Receipt Details</h3>
+              <h5 class="card-title border p-2 bg-success text-white rounded">
+                {{order.status}}
+              </h5>
+            </div>
+            <!-- <ul class="list-group list-group-flush">
+              <li class="list-group-item">asds</li>
+              <li class="list-group-item">asds</li>
+            </ul> -->
+            <div class="row">
+              <div class="col-6">
+                <strong>Sender</strong>
+                <hr />
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    Name: {{order.sender.sender_name}}
+                  </li>
+                  <li class="list-group-item">
+                    Address: {{order.sender.sender_address}}
+                  </li>
+                  <li class="list-group-item">
+                    Contact No: {{order.sender.sender_contact}}
+                  </li>
+                </ul>
+              </div>
+              <div class="col-6 border-start">
+                <strong>Receiver</strong>
+                <hr />
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    Name: {{order.receiver.receiver_name}}
+                  </li>
+                  <li class="list-group-item">
+                    Address: {{order.receiver.receiver_address}}
+                  </li>
+                  <li class="list-group-item">
+                    Contact No: {{order.receiver.receiver_contact}}
+                  </li>
+                </ul>
+              </div>
+              <div><strong>Payment Method:</strong> {{order.payment_type}}</div>
+              <div class="container pt-3 d-flex justify-content-between">
+                <div>
+                  <strong>Date Printed:</strong> {{order.receipt_print}}
+                </div>
+                <div>
+                  <a
+                    href="#"
+                    class="card-link"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    >Edit Order Status</a
+                  >
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">
+                            Change Order Status
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" method="POST">
+                            {% csrf_token %} {{form}}
+
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <input
+                              class="btn btn-primary"
+                              id="submit"
+                              type="submit"
+                              type="button"
+                              value="Save Changes"
+                            />
+                          </form>
+                        </div>
+                        <div class="modal-footer"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-5" />
+    <a href="{% url 'orders' %}" class="btn btn-primary">Go back</a>
+  </main>
+</div>
+{% endblock content %}
